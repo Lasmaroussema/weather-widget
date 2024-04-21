@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmers Weather Widget</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .weather-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+
+        .current-weather {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+        }
+
+        .forecast {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .forecast-day {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .forecast-icon {
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="weather-container">
+        <h1>Farmers Weather Widget</h1>
+
+        <div class="current-weather">
+            <div class="weather-details">
+                <p>Temperature: <span id="temperature">0</span>&#8451;</p>
+                <p>Humidity: <span id="humidity">0</span>%</p>
+                <p>Precipitation: <span id="precipitation">0</span>%</p>
+            </div>
+            <div class="weather-icon" id="weatherIcon"></div>
+        </div>
+
+        <h2>3-5 Day Forecast</h2>
+        <div class="forecast" id="forecast"></div>
+    </div>
+
+    <script>
+        
+        const weatherData = {
+            current: {
+                temperature: 20,
+                humidity: 60,
+                precipitation: 30,
+                icon: 'https://www.weatherbit.io/static/img/icons/c03d.png'
+            },
+            forecast: [
+                { day: 'Mon', icon: 'https://www.weatherbit.io/static/img/icons/r01d.png' },
+                { day: 'Tue', icon: 'https://www.weatherbit.io/static/img/icons/c02d.png' },
+                { day: 'Wed', icon: 'https://www.weatherbit.io/static/img/icons/c04d.png' },
+                { day: 'Thu', icon: 'https://www.weatherbit.io/static/img/icons/c03d.png' },
+                { day: 'Fri', icon: 'https://www.weatherbit.io/static/img/icons/c02d.png' }
+            ]
+        };
+
+                 function updateCurrentWeather() {
+            $('#temperature').text(weatherData.current.temperature);
+            $('#humidity').text(weatherData.current.humidity);
+            $('#precipitation').text(weatherData.current.precipitation);
+            $('#weatherIcon').css('background-image', `url(${weatherData.current.icon})`);
+        }
+
+        
+        function updateForecast() {
+            const forecastContainer = $('#forecast');
+            forecastContainer.empty();
+
+            weatherData.forecast.forEach(day => {
+                const forecastDay = `
+                    <div class="forecast-day">
+                        <p>${day.day}</p>
+                        <div class="forecast-icon" style="background-image: url(${day.icon})"></div>
+                    </div>
+                `;
+                forecastContainer.append(forecastDay);
+            });
+        }
+
+    
+        updateCurrentWeather();
+        updateForecast();
+    </script>
+</body>
+
+</html>
